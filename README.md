@@ -1,3 +1,4 @@
+[![DeepScan grade](https://deepscan.io/api/teams/16229/projects/20113/branches/537913/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=16229&pid=20113&bid=537913)
 
 # **JvFlux Compagnon**
 
