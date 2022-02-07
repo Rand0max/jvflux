@@ -148,7 +148,7 @@ function handleMatches(textChild, highlightedMatches) {
     const matches = [...normContent.matchAll(pageListRegex)];
 
     const filteredMatches = matches.filter(m => !highlightedMatches.has(m[0]));
-    if (!filteredMatches?.length) return undefined;
+    if (filteredMatches.length === 0) return undefined;
 
     highlightTextMatches(textChild, filteredMatches);
 
