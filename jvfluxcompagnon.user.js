@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        JvFlux Compagnon
 // @namespace   jvflux
-// @version     0.0.1
+// @version     0.0.2
 // @downloadURL https://github.com/Rand0max/jvfluxcompagnon/raw/master/jvfluxcompagnon.user.js
 // @updateURL   https://github.com/Rand0max/jvfluxcompagnon/raw/master/jvfluxcompagnon.meta.js
 // @author      Rand0max / JvFlux
@@ -30,7 +30,7 @@ const storage_pageListLastUpdate = 'jvfluxcompagnon_pageListLastUpdate', storage
 let pageList = [];
 let pageListRegex = new RegExp();
 
-const pageExclusions = ['Supprimer', 'Topic', 'Topics', 'Forumeur', 'Forumeurs', 'Up', 'Ahi', 'Meme', 'Même', 'Mème', 'Afk', 'Aka', 'Asap', 'Btw', 'C/C', 'Cad', 'Càd', 'Dl', 'Dtc', 'Fdp', 'Ftg', 'Ftw', 'Gg', 'Gl', 'Hf', 'Hs', 'Ig', 'Lel', 'Lmao', 'Lmfao', 'Lol', 'Maj', 'Mdp', 'Mdr', 'Mmo', 'Mmog', 'Mmorpg', 'Màj', 'Nl', 'Nsfw', 'Omd', 'Omfg', 'Omg', 'Over Used', 'Overused', 'Pgm', 'Pk', 'Rofl', 'Rpg', 'Tg', 'Vdm', 'Wow', 'Wtf', 'Wth'];
+const pageExclusions = ['Pseudo', 'Pseudos', 'Musique', 'Musiques', 'Supprimer', 'Topic', 'Topics', 'Forum', 'Forums', 'Forumeur', 'Forumeurs', 'Up', 'Ahi', 'Meme', 'Même', 'Mème', 'Afk', 'Aka', 'Asap', 'Btw', 'C/C', 'Cad', 'Càd', 'Dl', 'Dtc', 'Fdp', 'Ftg', 'Ftw', 'Gg', 'Gl', 'Hf', 'Hs', 'Ig', 'Lel', 'Lmao', 'Lmfao', 'Lol', 'Maj', 'Mdp', 'Mdr', 'Mmo', 'Mmog', 'Mmorpg', 'Màj', 'Nl', 'Nsfw', 'Omd', 'Omfg', 'Omg', 'Over Used', 'Overused', 'Pgm', 'Pk', 'Rofl', 'Rpg', 'Tg', 'Vdm', 'Wow', 'Wtf', 'Wth'];
 
 
 String.prototype.escapeRegexPattern = function () {
@@ -43,6 +43,14 @@ String.prototype.normalizeDiacritic = function () {
 
 Set.prototype.addArray = function (array) {
     array.forEach(this.add, this);
+}
+
+String.prototype.toTitleCase = function () {
+    if (this.length === 0) return this;
+    const regex = new RegExp(/\p{L}/, 'u');
+    const i = this.search(regex);
+    if (i < 0) return this;
+    return this.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.substring(1)).join(' ');
 }
 
 
@@ -118,7 +126,7 @@ function highlightTextMatches(element, matches) {
         const normMatch = match[0];
         if (match.index <= -1) return false;
         const realMatchContent = content.slice(match.index, match.index + normMatch.length);
-        const url = `${jvfluxUrl}/${realMatchContent}`;
+        const url = `${jvfluxUrl}/${realMatchContent.toTitleCase().replaceAll(' ', '_')}`;
         const newMatchContent = `<a href="${url}" target="_blank" class="xXx jvflux-link" title="Consulter la page &quot;${realMatchContent}&quot; dans JvFlux">${realMatchContent}</a>`;
         content = `${content.slice(0, match.index)}${newMatchContent}${content.slice(match.index + normMatch.length, content.length)}`;
         return true;
@@ -197,14 +205,14 @@ function getCurrentPageType(url) {
 }
 
 async function entryPoint() {
-    let start = performance.now();
+    //let start = performance.now();
     const currentPageType = getCurrentPageType(`${window.location.pathname}${window.location.search}`);
     if (currentPageType === 'topicmessages') {
         await init();
         await handleTopicMessages();
     }
-    let end = performance.now();
-    console.log(`entryPoint total time = ${end - start} ms`);
+    //let end = performance.now();
+    //console.log(`entryPoint total time = ${end - start} ms`);
 }
 
 entryPoint();
