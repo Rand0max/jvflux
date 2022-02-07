@@ -1,0 +1,21 @@
+
+https://jvflux.fr/?curid=11708
+https://jvflux.fr/American_Truck_Simulator_(forum)
+American Truck Simulator (forum)
+
+https://jvflux.fr/api.php?action=query&list=allpages&apfrom=A&aplimit=max
+
+https://jvflux.fr/api.php?action=query&list=allpages&apfrom=A&aplimit=max&format=json
+
+https://jvflux.fr/api.php?action=query&list=allpages&aplimit=max&format=json
+
+https://www.mediawiki.org/wiki/API:Allpages#JavaScript
+
+
+Je pense me servir de l'API mediawiki justement, je suis en train d'étudier la doc pour voir comment ça marche.
+
+A première vue ça sort les 500 premiers résultats au max, donc il faudra construire la liste complète en parcourant l'API plusieurs fois.
+
+L'idéal ça serait de stocker cette liste en cache sur votre serveur au format JSON, avec uniquement les titres car le reste on n'en a pas besoin, et de la rafraichir genre une fois par jour.
+
+Le script n'aurait plus qu'à télécharger cette liste et la mettre en cache de l'utilisateur, le reste ça sera assez simple.
