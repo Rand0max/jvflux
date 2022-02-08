@@ -1,4 +1,182 @@
+/* JvFlux Compagnon */
+.jvflux-logo {
+  background-image: url(https://jvflux.fr/skins/logo_wiki.png) 0 no-repeat;
+}
 .jvflux-link {
-  /* color: #26db26; */
-  color: #fe9f10;
+  color: rgba(var(--jv-text-color), 0.8);
+  opacity: 0.8;
+  cursor: help;
+  text-decoration: underline dotted;
+  position: relative;
+  overflow: visible;
+}
+.jvflux-link:hover {
+  color: var(--jv-link-color);
+  opacity: 1;
+}
+
+/* JVC */
+.bloc-message-forum {
+  overflow: visible;
+}
+.bloc-message-forum .conteneur-message {
+  overflow: visible;
+}
+.text-enrichi-forum {
+  overflow: visible;
+}
+
+/* MediaWiki Popup */
+.jvflux-link:hover .mwe-popups {
+  display: block;
+}
+.mwe-popups.mwe-popups-is-tall {
+  flex-direction: row;
+}
+.mwe-popups.mwe-popups-is-tall {
+  width: 500px;
+}
+.mwe-popups {
+  background: #fff;
+  position: absolute;
+  z-index: 110;
+  box-shadow: 0 30px 90px -20px rgba(0, 0, 0, 0.3),
+    0 0 1px 1px rgba(0, 0, 0, 0.05);
+  padding: 0;
+  display: none;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  min-width: 300px;
+  border-radius: 2px;
+  left: 0;
+  top: 150%;
+}
+.mwe-popups-fade-in-up {
+  -webkit-animation: mwe-popups-fade-in-up 0.2s ease forwards;
+  animation: mwe-popups-fade-in-up 0.2s ease forwards;
+}
+
+.mwe-popups .mwe-popups-container {
+  --x1: 0;
+  --x2: var(--pseudo-radius);
+  --x3: calc(var(--pointer-offset) - (var(--pointer-width) / 2));
+  --x4: var(--pointer-offset);
+  --x5: calc(var(--pointer-offset) + (var(--pointer-width) / 2));
+  --x6: calc(100% - var(--pseudo-radius));
+  --x7: 100%;
+  --y1: 0;
+  --y2: var(--pointer-height);
+  --y3: calc(var(--pointer-height) + var(--pseudo-radius));
+  --y4: calc(100% - var(--pseudo-radius));
+  --y5: 100%;
+  padding-top: 0;
+  display: flex;
+  background: #fff;
+  --pseudo-radius: 2px;
+  --pointer-height: 8px;
+  --pointer-width: 16px;
+  --pointer-offset: 26px;
+  clip-path: polygon(
+    var(--x2) var(--y2),
+    var(--x3) var(--y2),
+    var(--x4) var(--y1),
+    var(--x5) var(--y2),
+    var(--x6) var(--y2),
+    var(--x7) var(--y3),
+    var(--x7) var(--y4),
+    var(--x6) var(--y5),
+    var(--x2) var(--y5),
+    var(--x1) var(--y4),
+    var(--x1) var(--y3)
+  );
+}
+.mwe-popups .mwe-popups-container {
+  /* color: #202122; */
+  color: var(--jv-text-color);
+  background-color: var(--jv-bg-color);
+  margin-top: -8px;
+  padding-top: 9px;
+  text-decoration: none;
+}
+
+.mwe-popups.mwe-popups-is-tall .mwe-popups-discreet {
+  order: 1;
+}
+
+.mwe-popups.mwe-popups-is-tall .mwe-popups-discreet .mwe-popups-thumbnail {
+  width: 203px;
+  box-sizing: border-box;
+  height: 250px;
+}
+.mwe-popups .mwe-popups-thumbnail {
+  display: block;
+  object-fit: cover;
+  outline: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mwe-popups:not(.flipped-y):not(.flipped-x-y):not(.mwe-popups-image-pointer):not(.mwe-popups-type-disambiguation)
+  .mwe-popups-extract {
+  padding-top: var(--pointer-height);
+}
+.mwe-popups.mwe-popups-is-tall .mwe-popups-extract {
+  min-width: 265px;
+  height: 176px;
+  overflow: hidden;
+  float: left;
+}
+.mwe-popups .mwe-popups-extract {
+  margin: 16px;
+  display: block;
+  /* color: #202122; */
+  color: var(--jv-text-color);
+  background-color: var(--jv-bg-color);
+  text-decoration: none;
+  position: relative;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-regular.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-regular.woff2")
+      format("woff2"),
+    url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-regular.woff")
+      format("woff"),
+    url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-regular.ttf")
+      format("truetype"),
+    url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-regular.svg#Roboto")
+      format("svg");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: Roboto;
+  src: url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-italic.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-italic.woff2")
+      format("woff2"),
+    url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-italic.woff")
+      format("woff"),
+    url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-italic.ttf")
+      format("truetype"),
+    url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-italic.svg#Roboto")
+      format("svg");
+  font-style: italic;
+  font-weight: 400;
+}
+@font-face {
+  font-family: Roboto;
+  src: url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-700.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-700.woff2")
+      format("woff2"),
+    url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-700.woff")
+      format("woff"),
+    url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-700.ttf")
+      format("truetype"),
+    url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-700.svg#Roboto")
+      format("svg");
+  font-style: normal;
+  font-weight: 700;
 }

@@ -1,27 +1,30 @@
 // ==UserScript==
 // @name        JvFlux Compagnon
 // @namespace   jvflux
-// @version     0.0.2
-// @downloadURL https://github.com/Rand0max/jvfluxcompagnon/raw/master/jvfluxcompagnon.user.js
-// @updateURL   https://github.com/Rand0max/jvfluxcompagnon/raw/master/jvfluxcompagnon.meta.js
+// @version     0.0.3
+// @downloadURL https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.user.js
+// @updateURL   https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.meta.js
 // @author      Rand0max / JvFlux
 // @description Intégration du wiki officiel JvFlux au sein des forums JVC
 // @icon        https://jvflux.fr/skins/logo_wiki.png
 // @match       http://www.jeuxvideo.com/forums/*
 // @match       https://www.jeuxvideo.com/forums/*
+// @connect     jvflux.fr
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_addStyle
 // @grant       GM_deleteValue
 // @grant       GM_listValues
 // @grant       GM_getResourceText
-// @resource    JVFLUX_CSS https://raw.githubusercontent.com/Rand0max/jvfluxcompagnon/master/jvfluxcompagnon.css
+// @resource    JVFLUX_CSS https://raw.githubusercontent.com/Rand0max/jvflux/master/jvfluxcompagnon.css
 // @run-at      document-end
 // ==/UserScript==
 
 
 const jvfluxUrl = 'https://jvflux.fr';
 const jvfluxPageListUrl = 'https://archives.jvflux.fr/noreferer/pages.json';
+
+const jvfluxFullPreviewUrl = (page) => `${jvfluxUrl}/api.php?action=query&format=json&prop=info%7Cextracts%7Cpageimages%7Crevisions%7Cinfo&formatversion=2&redirects=true&exintro=true&exchars=525&explaintext=true&exsectionformat=plain&piprop=thumbnail&pithumbsize=480&pilicense=any&rvprop=timestamp&inprop=url&titles=${page}&smaxage=300&maxage=300&uselang=content&pithumbsize=250`;
 
 const storage_init = 'jvfluxcompagnon_init', storage_init_default = false;
 const storage_pageList = 'jvfluxcompagnon_pageList', storage_pageList_default = [];
@@ -30,7 +33,7 @@ const storage_pageListLastUpdate = 'jvfluxcompagnon_pageListLastUpdate', storage
 let pageList = [];
 let pageListRegex = new RegExp();
 
-const pageExclusions = ['Pseudo', 'Pseudos', 'Musique', 'Musiques', 'Supprimer', 'Topic', 'Topics', 'Forum', 'Forums', 'Forumeur', 'Forumeurs', 'Up', 'Ahi', 'Meme', 'Même', 'Mème', 'Afk', 'Aka', 'Asap', 'Btw', 'C/C', 'Cad', 'Càd', 'Dl', 'Dtc', 'Fdp', 'Ftg', 'Ftw', 'Gg', 'Gl', 'Hf', 'Hs', 'Ig', 'Lel', 'Lmao', 'Lmfao', 'Lol', 'Maj', 'Mdp', 'Mdr', 'Mmo', 'Mmog', 'Mmorpg', 'Màj', 'Nl', 'Nsfw', 'Omd', 'Omfg', 'Omg', 'Over Used', 'Overused', 'Pgm', 'Pk', 'Rofl', 'Rpg', 'Tg', 'Vdm', 'Wow', 'Wtf', 'Wth'];
+const pageExclusions = ['Rire', 'Rires', 'Jvc', 'Pseudo', 'Pseudos', 'Musique', 'Musiques', 'Supprimer', 'Topic', 'Topics', 'Forum', 'Forums', 'Forumeur', 'Forumeurs', 'Up', 'Ahi', 'Meme', 'Même', 'Mème', 'Afk', 'Aka', 'Asap', 'Btw', 'C/C', 'Cad', 'Càd', 'Dl', 'Dtc', 'Fdp', 'Ftg', 'Ftw', 'Gg', 'Gl', 'Hf', 'Hs', 'Ig', 'Lel', 'Lmao', 'Lmfao', 'Lol', 'Maj', 'Mdp', 'Mdr', 'Mmo', 'Mmog', 'Mmorpg', 'Màj', 'Nl', 'Nsfw', 'Omd', 'Omfg', 'Omg', 'Over Used', 'Overused', 'Pgm', 'Pk', 'Rofl', 'Rpg', 'Tg', 'Vdm', 'Wow', 'Wtf', 'Wth'];
 
 
 String.prototype.escapeRegexPattern = function () {
@@ -43,14 +46,6 @@ String.prototype.normalizeDiacritic = function () {
 
 Set.prototype.addArray = function (array) {
     array.forEach(this.add, this);
-}
-
-String.prototype.toTitleCase = function () {
-    if (this.length === 0) return this;
-    const regex = new RegExp(/\p{L}/, 'u');
-    const i = this.search(regex);
-    if (i < 0) return this;
-    return this.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.substring(1)).join(' ');
 }
 
 
@@ -118,6 +113,10 @@ function getAllMessages(doc) {
     return [...allMessages];
 }
 
+function findArticleTitle(match) {
+    return pageList.find(p => p.toLowerCase() === match.toLowerCase());
+}
+
 function highlightTextMatches(element, matches) {
     let content = element.textContent;
 
@@ -126,8 +125,9 @@ function highlightTextMatches(element, matches) {
         const normMatch = match[0];
         if (match.index <= -1) return false;
         const realMatchContent = content.slice(match.index, match.index + normMatch.length);
-        const url = `${jvfluxUrl}/${realMatchContent.toTitleCase().replaceAll(' ', '_')}`;
-        const newMatchContent = `<a href="${url}" target="_blank" class="xXx jvflux-link" title="Consulter la page &quot;${realMatchContent}&quot; dans JvFlux">${realMatchContent}</a>`;
+        const articleTitle = findArticleTitle(realMatchContent);
+        const url = `${jvfluxUrl}/${articleTitle.replaceAll(' ', '_')}`;
+        const newMatchContent = `<a href="${url}" target="_blank" class="xXx jvflux-link" pagetitle="${articleTitle}" title="Consulter la page &quot;${articleTitle}&quot; dans JvFlux">${realMatchContent}</a>`;
         content = `${content.slice(0, match.index)}${newMatchContent}${content.slice(match.index + normMatch.length, content.length)}`;
         return true;
     });
@@ -185,17 +185,68 @@ function handleMessage(message) {
     handleMessageChildren(contentElement, new Set());
 }
 
+async function previewArticleCallback(pagetitle) {
+    const url = jvfluxFullPreviewUrl(pagetitle);
+
+    let previewContent = await fetch(url)
+        .then(function (response) {
+            if (!response.ok) throw Error(response.statusText);
+            return response.text();
+        })
+        .then(function (res) {
+            return JSON.parse(res);
+        })
+        .catch(function (err) {
+            console.warn(err);
+            return undefined;
+        });
+
+    if (!previewContent) return undefined;
+
+    const resPages = previewContent.query.pages;
+    const rootPage = resPages[Object.keys(resPages)[0]];
+    const extract = rootPage.extract?.trim();
+    const thumbnail = rootPage.thumbnail?.source;
+
+    return { extract: extract, thumbnail: thumbnail };
+}
+
+async function onPreviewHover(element) {
+    if (!element.hasAttribute('pagetitle') || element.children.length > 0) return;
+    const previewContent = await previewArticleCallback(element.getAttribute('pagetitle'));
+
+    if (!previewContent?.extract) return;
+
+    const mwPopupThumbnail = previewContent.thumbnail?.length > 0 ?
+        `<a class="mwe-popups-discreet" href="${element.getAttribute('href')}"><img class="mwe-popups-thumbnail" src="${previewContent.thumbnail}"/></a>` : '';
+
+    const mwPopupHtml =
+        `<div class="mwe-popups mwe-popups-type-page mwe-popups-fade-in-up mwe-popups-no-image-pointer mwe-popups-is-tall" aria-hidden="">
+        <div class="mwe-popups-container">
+        ${mwPopupThumbnail}
+        <a class="mwe-popups-extract">${previewContent.extract}</a>
+        </div>
+        </div>`;
+
+    let popupContainer = document.createElement('div');
+    element.appendChild(popupContainer);
+    popupContainer.outerHTML = mwPopupHtml;
+}
+
 async function handleTopicMessages() {
     let allMessages = getAllMessages(document);
-    allMessages.forEach(function (message) {
-        handleMessage(message);
+    allMessages.forEach((message) => handleMessage(message));
+    let allLinks = document.querySelectorAll('.jvflux-link');
+    allLinks.forEach(link => {
+        link.onclick = () => onPreviewHover(link);
+        link.onmouseover = () => onPreviewHover(link);
     });
 }
 
 async function init() {
     await initStorage();
     const jvfluxCss = GM_getResourceText('JVFLUX_CSS');
-    GM_addStyle(jvfluxCss ?? '.jvflux-link {color: #fe9f10;}');
+    GM_addStyle(jvfluxCss);
 }
 
 function getCurrentPageType(url) {
