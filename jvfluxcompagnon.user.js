@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        JvFlux Compagnon
 // @namespace   jvflux
-// @version     0.0.5
+// @version     0.0.6
 // @downloadURL https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.user.js
 // @updateURL   https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.meta.js
 // @author      Rand0max / JvFlux
@@ -73,7 +73,7 @@ async function queryPageList() {
 
     if (!newPageList) return;
 
-    newPageList = newPageList.filter((el) => !pageExclusions.includes(el.toLowerCase()));
+    newPageList = newPageList.filter((page) => !pageExclusions.includes(page.toLowerCase()));
 
     pageList = [...new Set(newPageList)];
 
@@ -114,7 +114,9 @@ function getAllMessages(doc) {
 }
 
 function findArticleTitle(match) {
-    return pageList.find(p => p.toLowerCase() === match.toLowerCase());
+    let articleTitle = pageList.find(p => p.toLowerCase() === match.toLowerCase());
+    if (articleTitle?.length > 0) return articleTitle;
+    return pageList.find(p => p.toLowerCase().normalizeDiacritic() === match.toLowerCase().normalizeDiacritic());
 }
 
 function highlightTextMatches(element, matches) {
