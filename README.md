@@ -4,7 +4,6 @@
 
 ## Intégration du wiki officiel JvFlux au sein des forums JVC
 
-
 # Installation
 
 ### Étape pour mobile : Il faut d'abord installer le navigateur **Kiwi Browser** (équivalent de Chrome)
@@ -25,10 +24,17 @@
 
 ### Étape 2 : Installez **JvFlux Compagnon**
 
-- Installez **JvFlux Compagnon** en [cliquant ici](https://github.com/Rand0max/jvfluxcompagnon/raw/master/jvfluxcompagnon.user.js) ou [ici](https://jvscript.fr/script/jvfluxcompagnon) puis cliquez sur le bouton "Installer" dans la fenêtre qui s'ouvre
+- Installez **JvFlux Compagnon** en [cliquant ici](https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.user.js) ou [ici](https://jvscript.fr/script/jvflux-compagnon) puis cliquez sur le bouton "Installer" dans la fenêtre qui s'ouvre
 
 ## Fonctionnalités :
 
-- **ent** : *ent*
+- **Intégration de JvFlux dans les messages** : _les mots ou expressions ayant une page sur le wiki JvFlux deviendront des liens hypertexte pour consulter le wiki facilement_
+- **Aperçu du wiki au passage de la souris** : _lorsque la souris survol les mots, une popup s'ouvrira avec un aperçu du contenu de la page wiki_
 
-Et plus encore !
+## Plus d'informations
+
+- [Contacter l'auteur](https://www.jeuxvideo.com/messages-prives/nouveau.php?all_dest=Rand0max)
+- [Topic JVC officiel](https://www.jeuxvideo.com/forums/42-51-68909000-1-0-1-0-grande-refonte-2022-de-jv-flux-appel-aux-contributions.htm)
+- [Topic sur JvArchive](https://jvarchive.com/forums/42-51-68909000-1-0-1-0-grande-refonte-2022-de-jv-flux-appel-aux-contributions)
+- [Page jvscript.fr](https://jvscript.fr/script/jvflux-compagnon)
+- [Repository officiel](https://github.com/Rand0max/jvflux/)
