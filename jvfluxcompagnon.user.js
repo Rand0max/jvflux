@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        JvFlux Compagnon
 // @namespace   jvflux
-// @version     0.0.4
+// @version     0.0.5
 // @downloadURL https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.user.js
 // @updateURL   https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.meta.js
 // @author      Rand0max / JvFlux
@@ -33,7 +33,7 @@ const storage_pageListLastUpdate = 'jvfluxcompagnon_pageListLastUpdate', storage
 let pageList = [];
 let pageListRegex = new RegExp();
 
-const pageExclusions = ['Rire', 'Rires', 'Jvc', 'Pseudo', 'Pseudos', 'Musique', 'Musiques', 'Supprimer', 'Topic', 'Topics', 'Forum', 'Forums', 'Forumeur', 'Forumeurs', 'Up', 'Ahi', 'Meme', 'Même', 'Mème', 'Afk', 'Aka', 'Asap', 'Btw', 'C/C', 'Cad', 'Càd', 'Dl', 'Dtc', 'Fdp', 'Ftg', 'Ftw', 'Gg', 'Gl', 'Hf', 'Hs', 'Ig', 'Lel', 'Lmao', 'Lmfao', 'Lol', 'Maj', 'Mdp', 'Mdr', 'Mmo', 'Mmog', 'Mmorpg', 'Màj', 'Nl', 'Nsfw', 'Omd', 'Omfg', 'Omg', 'Over Used', 'Overused', 'Pgm', 'Pk', 'Rofl', 'Rpg', 'Tg', 'Vdm', 'Wow', 'Wtf', 'Wth'];
+const pageExclusions = ['rire', 'rires', 'jvc', 'pseudo', 'pseudos', 'musique', 'musiques', 'supprimer', 'topic', 'topics', 'forum', 'forums', 'forumeur', 'forumeurs', 'up', 'ahi', 'meme', 'même', 'mème', 'afk', 'aka', 'asap', 'btw', 'c/c', 'cad', 'càd', 'dl', 'dtc', 'fdp', 'ftg', 'ftw', 'gg', 'gl', 'hf', 'hs', 'ig', 'lel', 'lmao', 'lmfao', 'lol', 'maj', 'mdp', 'mdr', 'mmo', 'mmog', 'mmorpg', 'màj', 'nl', 'nsfw', 'omd', 'omfg', 'omg', 'over used', 'overused', 'pgm', 'pk', 'rofl', 'rpg', 'tg', 'vdm', 'wow', 'wtf', 'wth'];
 
 
 String.prototype.escapeRegexPattern = function () {
@@ -73,7 +73,7 @@ async function queryPageList() {
 
     if (!newPageList) return;
 
-    newPageList = newPageList.filter((el) => !pageExclusions.includes(el));
+    newPageList = newPageList.filter((el) => !pageExclusions.includes(el.toLowerCase()));
 
     pageList = [...new Set(newPageList)];
 
