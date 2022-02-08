@@ -121,7 +121,7 @@
 }
 .mwe-popups.mwe-popups-is-tall .mwe-popups-extract {
   min-width: 265px;
-  height: 176px;
+  min-height: 176px;
   overflow: hidden;
   float: left;
 }
