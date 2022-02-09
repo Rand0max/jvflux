@@ -24,7 +24,7 @@
 
 ### Étape 2 : Installez **JV Flux Compagnon**
 
-- Installez **JV Flux Compagnon** en [cliquant ici](https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.user.js) ou [ici](https://jvscript.fr/script/jvflux-compagnon) puis cliquez sur le bouton "Installer" dans la fenêtre qui s'ouvre
+- Installez **JV Flux Compagnon** en [cliquant ici](https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.user.js) ou [ici](https://jvscript.fr/script/jv-flux-compagnon) puis cliquez sur le bouton "Installer" dans la fenêtre qui s'ouvre
 
 ## Fonctionnalités :
 
@@ -37,5 +37,5 @@
 - [Contacter l'auteur](https://www.jeuxvideo.com/messages-prives/nouveau.php?all_dest=Rand0max)
 - [Topic JVC officiel](https://www.jeuxvideo.com/forums/42-51-68909000-1-0-1-0-grande-refonte-2022-de-jv-flux-appel-aux-contributions.htm)
 - [Topic sur JvArchive](https://jvarchive.com/forums/42-51-68909000-1-0-1-0-grande-refonte-2022-de-jv-flux-appel-aux-contributions)
-- [Page jvscript.fr](https://jvscript.fr/script/jvflux-compagnon)
+- [Page jvscript.fr](https://jvscript.fr/script/jv-flux-compagnon)
 - [Repository officiel](https://github.com/Rand0max/jvflux/)
