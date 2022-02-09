@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        JvFlux Compagnon
 // @namespace   jvflux
-// @version     0.0.6
+// @version     0.0.7
 // @downloadURL https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.user.js
 // @updateURL   https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.meta.js
 // @author      Rand0max / JvFlux
@@ -42,6 +42,18 @@ String.prototype.escapeRegexPattern = function () {
 
 String.prototype.normalizeDiacritic = function () {
     return this.normalize("NFD").replace(/\p{Diacritic}/gu, '');
+}
+
+String.prototype.removeDoubleSpaces = function () {
+    return this.replaceAll(/ +(?= )/g, '');
+}
+
+String.prototype.capitalize = function () {
+    if (this.length === 0) return this;
+    const regex = new RegExp(/\p{L}/, 'u');
+    const i = this.search(regex);
+    if (i < 0) return this;
+    return this.substring(0, i) + this.charAt(i).toUpperCase() + this.slice(i + 1);
 }
 
 Set.prototype.addArray = function (array) {
@@ -108,6 +120,51 @@ async function initStorage() {
     }
 }
 
+function addRightBlocMatches(matches) {
+    if (matches?.size === 0) return;
+
+    let html = '';
+    html += '<div class="card card-jv-forum card-forum-margin">';
+    html += `<div class="card-header">JV FLUX</div>`;
+    html += '<div class="card-body">';
+    html += '<div class="scrollable">';
+    html += '<div class="scrollable-wrapper">';
+    html += '<div id="jvflux-matches-content" class="scrollable-content bloc-info-forum">';
+
+    function formatMatches(matches) {
+        let formatMatch = (str) => str.removeDoubleSpaces().trim().capitalize();
+        let matchesSorted = [...matches].map(formatMatch).sort();
+        let matchesHtml = '';
+        let index = 0;
+        matchesSorted.forEach((match) => {
+            const className = `jvflux-match${index < matchesSorted.length - 1 ? ' match-after' : ''}`;
+            matchesHtml += buildArticleLink(match, className);
+            index++;
+        });
+        return matchesHtml;
+    }
+
+    html += `<div id="jvflux-matches-wrapper">`;
+    html += `<div id="jvflux-matched">${formatMatches(matches)}</div>`;
+    html += '</div>';
+
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+
+    let matchesBloc = document.createElement('div');
+    document.querySelector('#forum-right-col').append(matchesBloc);
+    matchesBloc.outerHTML = html;
+}
+
+function buildArticleLink(match, className = 'jvflux-link') {
+    const articleTitle = findArticleTitle(match);
+    const url = `${jvfluxUrl}/${articleTitle.replaceAll(' ', '_')}`;
+    return `<a href="${url}" target="_blank" class="xXx ${className}" pagetitle="${articleTitle}" title="Consulter la page &quot;${articleTitle}&quot; dans JV Flux">${match}</a>`;
+}
+
 function getAllMessages(doc) {
     let allMessages = doc.querySelectorAll('.conteneur-messages-pagi > div.bloc-message-forum');
     return [...allMessages];
@@ -127,9 +184,7 @@ function highlightTextMatches(element, matches) {
         const normMatch = match[0];
         if (match.index <= -1) return false;
         const realMatchContent = content.slice(match.index, match.index + normMatch.length);
-        const articleTitle = findArticleTitle(realMatchContent);
-        const url = `${jvfluxUrl}/${articleTitle.replaceAll(' ', '_')}`;
-        const newMatchContent = `<a href="${url}" target="_blank" class="xXx jvflux-link" pagetitle="${articleTitle}" title="Consulter la page &quot;${articleTitle}&quot; dans JvFlux">${realMatchContent}</a>`;
+        const newMatchContent = buildArticleLink(realMatchContent);
         content = `${content.slice(0, match.index)}${newMatchContent}${content.slice(match.index + normMatch.length, content.length)}`;
         return true;
     });
@@ -184,7 +239,7 @@ function handleMessageChildren(element, highlightedMatches) {
 function handleMessage(message) {
     let contentElement = message.querySelector('.txt-msg.text-enrichi-forum');
     if (!contentElement) return;
-    handleMessageChildren(contentElement, new Set());
+    return handleMessageChildren(contentElement, new Set());
 }
 
 async function previewArticleCallback(pagetitle) {
@@ -237,12 +292,17 @@ async function onPreviewHover(element) {
 
 async function handleTopicMessages() {
     let allMessages = getAllMessages(document);
-    allMessages.forEach((message) => handleMessage(message));
+    let allMatches = new Set();
+    allMessages.forEach((message) => {
+        let messageMatches = handleMessage(message);
+        messageMatches.forEach((m) => allMatches.add(m.trim().toLowerCase()));
+    });
     let allLinks = document.querySelectorAll('.jvflux-link');
     allLinks.forEach(link => {
         link.onclick = () => onPreviewHover(link);
         link.onmouseover = () => onPreviewHover(link);
     });
+    addRightBlocMatches(allMatches);
 }
 
 async function init() {

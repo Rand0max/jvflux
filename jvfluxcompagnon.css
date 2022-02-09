@@ -14,6 +14,14 @@
   color: var(--jv-link-color);
   opacity: 1;
 }
+.jvflux-match {
+  margin-right: 5px;
+  cursor: pointer;
+  user-select: text;
+}
+.jvflux-match.match-after::after {
+  content: ",";
+}
 
 /* JVC */
 .bloc-message-forum {
