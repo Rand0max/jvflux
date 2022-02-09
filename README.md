@@ -35,7 +35,7 @@
 ## Plus d'informations
 
 - [Contacter l'auteur](https://www.jeuxvideo.com/messages-prives/nouveau.php?all_dest=Rand0max)
-- [Topic JVC officiel](https://www.jeuxvideo.com/forums/42-51-68909000-1-0-1-0-grande-refonte-2022-de-jv-flux-appel-aux-contributions.htm)
-- [Topic sur JvArchive](https://jvarchive.com/forums/42-51-68909000-1-0-1-0-grande-refonte-2022-de-jv-flux-appel-aux-contributions)
+- [Topic JVC officiel](https://www.jeuxvideo.com/forums/42-51-68982055-1-0-1-0-officiel-jv-flux-compagnon-le-plugin-indispensable-du-forum.htm)
+- [Topic sur JvArchive](https://jvarchive.com/forums/42-51-68982055-1-0-1-0-officiel-jv-flux-compagnon-le-plugin-indispensable-du-forum.htm)
 - [Page jvscript.fr](https://jvscript.fr/script/jv-flux-compagnon)
 - [Repository officiel](https://github.com/Rand0max/jvflux/)
