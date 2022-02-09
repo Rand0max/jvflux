@@ -1,8 +1,8 @@
 [![DeepScan grade](https://deepscan.io/api/teams/16229/projects/20113/branches/537913/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=16229&pid=20113&bid=537913)
 
-# **JvFlux Compagnon**
+# **JV Flux Compagnon**
 
-## Intégration du wiki officiel JvFlux au sein des forums JVC
+## Intégration du wiki officiel JV Flux au sein des forums JVC
 
 # Installation
 
@@ -22,14 +22,15 @@
 
 <a href="https://microsoftedge.microsoft.com/addons/detail/tampermonkey/iikmkjmpaadaobahmlepeloendndfphd/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg" alt="Edge" width="20"/> Edge</a>
 
-### Étape 2 : Installez **JvFlux Compagnon**
+### Étape 2 : Installez **JV Flux Compagnon**
 
-- Installez **JvFlux Compagnon** en [cliquant ici](https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.user.js) ou [ici](https://jvscript.fr/script/jvflux-compagnon) puis cliquez sur le bouton "Installer" dans la fenêtre qui s'ouvre
+- Installez **JV Flux Compagnon** en [cliquant ici](https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.user.js) ou [ici](https://jvscript.fr/script/jvflux-compagnon) puis cliquez sur le bouton "Installer" dans la fenêtre qui s'ouvre
 
 ## Fonctionnalités :
 
-- **Intégration de JvFlux dans les messages** : _les mots ou expressions ayant une page sur le wiki JvFlux deviendront des liens hypertexte pour consulter le wiki facilement_
-- **Aperçu du wiki au passage de la souris** : _lorsque la souris survol les mots, une popup s'ouvrira avec un aperçu du contenu de la page wiki_
+- **Intégration de JV Flux dans les messages** : _les mots ou expressions ayant une page sur le wiki JV Flux deviendront des liens hypertextes pour consulter le wiki en un clic_
+- **Aperçu du wiki au passage de la souris** : _lorsque la souris survole les mots, une popup s'ouvrira avec un aperçu du contenu de la page wiki_
+- **Récapitulatif des correspondances à droite des messages** : _avec un encart sur la droite du topic regroupant toutes les pages wiki trouvées_
 
 ## Plus d'informations
 
