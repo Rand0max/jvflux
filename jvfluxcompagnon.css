@@ -143,6 +143,16 @@
   position: relative;
 }
 
+/* Media queries */
+@media (max-width: 808px) {
+  .mwe-popups.mwe-popups-is-tall {
+    max-width: 500px;
+    width: auto;
+    left: auto;
+  }
+}
+
+/* Fonts */
 @font-face {
   font-family: Roboto;
   src: url("https://jvflux.fr/skins/fonts/v20/roboto-v20-latin-regular.eot?#iefix")
