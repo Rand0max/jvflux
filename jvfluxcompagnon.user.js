@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        JvFlux Compagnon
 // @namespace   jvflux
-// @version     0.0.8
+// @version     0.0.9
 // @downloadURL https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.user.js
 // @updateURL   https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.meta.js
 // @author      Rand0max / JvFlux
@@ -29,6 +29,8 @@ const jvfluxFullPreviewUrl = (page) => `${jvfluxUrl}/api.php?action=query&format
 const storage_init = 'jvfluxcompagnon_init', storage_init_default = false;
 const storage_pageList = 'jvfluxcompagnon_pageList', storage_pageList_default = [];
 const storage_pageListLastUpdate = 'jvfluxcompagnon_pageListLastUpdate', storage_pageListLastUpdate_default = new Date(0);
+
+const pageListRefreshExpire = 12;
 
 let pageList = [];
 let pageListRegex = new RegExp();
@@ -96,7 +98,7 @@ async function queryPageList() {
 function mustRefreshPageList() {
     let pageListLastUpdate = new Date(GM_getValue(storage_pageListLastUpdate, storage_pageListLastUpdate_default));
     let datenow = new Date();
-    let dateOneDayOld = new Date(datenow.setHours(datenow.getHours() - 24));
+    let dateOneDayOld = new Date(datenow.setHours(datenow.getHours() - pageListRefreshExpire));
     return pageListLastUpdate <= dateOneDayOld;
 }
 
