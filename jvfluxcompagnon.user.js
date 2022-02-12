@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        JvFlux Compagnon
 // @namespace   jvflux
-// @version     1.0.0
+// @version     1.0.1
 // @downloadURL https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.user.js
 // @updateURL   https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.meta.js
 // @author      Rand0max / JvFlux
@@ -24,7 +24,7 @@
 const jvfluxUrl = 'https://jvflux.fr';
 const jvfluxPageListUrl = 'https://archives.jvflux.fr/noreferer/pages.json';
 
-const jvfluxFullPreviewUrl = (page) => `${jvfluxUrl}/api.php?action=query&format=json&prop=info%7Cextracts%7Cpageimages%7Crevisions%7Cinfo&formatversion=2&redirects=true&exintro=true&exchars=525&explaintext=true&exsectionformat=plain&piprop=thumbnail&pithumbsize=480&pilicense=any&rvprop=timestamp&inprop=url&titles=${page}&smaxage=300&maxage=300&uselang=content&pithumbsize=250`;
+const jvfluxFullPreviewUrl = (page) => `${jvfluxUrl}/api.php?action=query&format=json&prop=info%7Cextracts%7Cpageimages%7Crevisions%7Cinfo&formatversion=2&redirects=true&exintro=true&exchars=525&explaintext=true&exsectionformat=plain&piprop=thumbnail&pithumbsize=480&pilicense=any&rvprop=timestamp&inprop=url&titles=${page}&smaxage=300&maxage=300&uselang=content&pithumbsize=600`;
 
 const storage_init = 'jvfluxcompagnon_init', storage_init_default = false;
 const storage_pageList = 'jvfluxcompagnon_pageList', storage_pageList_default = [];

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        JvFlux Compagnon
 // @namespace   jvflux
-// @version     1.0.0
+// @version     1.0.1
 // @downloadURL https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.user.js
 // @updateURL   https://github.com/Rand0max/jvflux/raw/master/jvfluxcompagnon.meta.js
 // @author      Rand0max / JvFlux
